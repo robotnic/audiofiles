@@ -193,7 +193,8 @@ const payload = {
     },
     body: JSON.stringify(payload),
   });
-
+  const text = (await response.text()) as any;
+  console.log(text.substring(0,1000))
   const data = (await response.json()) as any;
 
   if (data.audioContent) {
