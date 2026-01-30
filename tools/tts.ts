@@ -129,7 +129,7 @@ async function synthesize() {
     }
   };
   */
-
+/*
   const payload = {
     audioConfig: {
       audioEncoding: "LINEAR16",
@@ -146,6 +146,21 @@ async function synthesize() {
       name: "Orus",
     },
   };
+  */
+
+  const payload =
+  {
+  "input": {
+    "text": "Hello world"
+  },
+  "voice": {
+    "languageCode": "en-US",
+    "name": "en-US-Wavenet-D"
+  },
+  "audioConfig": {
+    "audioEncoding": "MP3"
+  }
+}
 
   console.log("Requesting TTS from Gemini...");
 
