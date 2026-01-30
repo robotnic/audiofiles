@@ -1,0 +1,23 @@
+{
+  "name": "audiofiles",
+  "version": "1.0.0",
+  "description": "create audio file for gh pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-audio": "node tools/generate-tts-all.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robotnic/audiofiles.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robotnic/audiofiles/issues"
+  },
+  "homepage": "https://github.com/robotnic/audiofiles#readme",
+  "dependencies": {
+    "@andresaya/edge-tts": "^1.8.0"
+  }
+}
