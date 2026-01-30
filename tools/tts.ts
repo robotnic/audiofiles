@@ -31,7 +31,7 @@ async function synthesize() {
     },
   };
   */
-
+/*
     const payload = {
     instances: [
       {
@@ -46,6 +46,20 @@ async function synthesize() {
       }
     ]
   };
+  */
+
+  const payload = {
+  contents: [
+    {
+      parts: [
+        { text: "ໃສ ໃຜ" }
+      ]
+    }
+  ],
+  generationConfig: {
+    response_mime_type: "audio/mp3",
+  }
+};
 
   console.log("Requesting TTS from Gemini...");
 
