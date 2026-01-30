@@ -18,7 +18,8 @@ async function synthesize() {
   //  const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-tts:predict?key=${API_KEY}`;
 //    const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-tts:predict`;
 
-  const URL = `https://texttospeech.googleapis.com/v1beta1/text:synthesize`;
+//  const URL = `https://texttospeech.googleapis.com/v1beta1/text:synthesize`;
+  const URL = "https://generativelanguage.googleapis.com"
   /*
   const payload = {
     input: {
@@ -148,6 +149,7 @@ async function synthesize() {
   };
   */
 
+  /*
   const payload =
   {
   "input": {
@@ -161,6 +163,25 @@ async function synthesize() {
     "audioEncoding": "MP3"
   }
 }
+*/
+
+const payload = {
+  "contents": [{
+    "parts": [{
+      "text": "Say 'Hello world' clearly and naturally."
+    }]
+  }],
+  "generation_config": {
+    "response_mime_type": "audio/mp3",
+    "speech_config": {
+      "voice_config": {
+        "prebuilt_voice_config": {
+          "voice_name": "Puck" // Options include Puck, Charon, Kore, etc.
+        }
+      }
+    }
+  }
+};
 
   console.log("Requesting TTS from Gemini...");
 
