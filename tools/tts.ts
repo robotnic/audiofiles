@@ -195,10 +195,30 @@ const payload = {
     },
     body: JSON.stringify(payload),
   });
-  const text = (await response.text()) as any;
-  console.log(text.substring(0,1000))
+  //const text = (await response.text()) as any;
+  //console.log(text.substring(0,1000))
   const data = (await response.json()) as any;
 
+
+if (audioBase64Data) {
+  const fileName = "gemini_audio.raw"; // It's raw PCM data, not MP3
+  // Make sure OUTPUT_DIR exists or define it first
+  fs.writeFileSync(
+    path.join(OUTPUT_DIR, fileName),
+    Buffer.from(audioBase64Data, "base64"),
+  );
+  console.log(`✅ Success: Saved raw PCM data to /audio/${fileName}`);
+  console.log('NOTE: This is raw PCM data. You might need to add a WAV header to play it easily.');
+
+} else if (data.error) {
+  console.error("❌ API Error:", JSON.stringify(data.error, null, 2));
+  process.exit(1);
+
+} else {
+  console.error("❌ API Error: Did not find expected audio data path.");
+  console.log("Full response:", JSON.stringify(data, null, 2));
+}
+/*
   if (data.audioContent) {
     const fileName = "lao_example.mp3";
     fs.writeFileSync(
@@ -210,6 +230,7 @@ const payload = {
     console.error("❌ API Error:", JSON.stringify(data.error, null, 2));
     process.exit(1);
   }
+    */
 }
 
 synthesize();
