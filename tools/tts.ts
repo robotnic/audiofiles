@@ -99,7 +99,7 @@ async function synthesize() {
     }
   };
   */
-
+/*
     const payload = {
     model: "models/gemini-2.5-flash-tts",
     content: {
@@ -111,6 +111,21 @@ async function synthesize() {
       }
     }
   };
+  */
+
+    const payload = {
+    model: "models/gemini-2.5-flash-tts",
+    // This is the specific structure for the beta TTS endpoint
+    content: {
+      parts: [{ text: "ໃສ ໃຜ" }]
+    },
+    voiceConfig: { // CamelCase is often preferred over snake_case in beta
+      prebuiltVoiceConfig: {
+        voiceName: "Charon"
+      }
+    }
+  };
+
 
   console.log("Requesting TTS from Gemini...");
 
