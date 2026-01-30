@@ -84,7 +84,7 @@ async function synthesize() {
   }
 };
 */
-
+/*
   const payload = {
     // The standard Cloud TTS schema
     input: {
@@ -96,6 +96,19 @@ async function synthesize() {
     },
     audioConfig: {
       audioEncoding: "MP3"
+    }
+  };
+  */
+
+    const payload = {
+    model: "models/gemini-2.5-flash-tts",
+    content: {
+      text: "ໃສ ໃຜ"
+    },
+    voice_config: {
+      prebuilt_voice_config: {
+        voice_name: "Charon"
+      }
     }
   };
 
