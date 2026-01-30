@@ -16,7 +16,7 @@ async function synthesize() {
 
 //  const URL = `https://generativelanguage.googleapis.com{API_KEY}`;
   const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-tts:predict?key=${API_KEY}`;
-
+/*
   const payload = {
     input: {
       text: "ໃສ ໃຜ",
@@ -29,6 +29,22 @@ async function synthesize() {
     audioConfig: {
       audioEncoding: "MP3",
     },
+  };
+  */
+
+    const payload = {
+    instances: [
+      {
+        text: "ໃສ ໃຜ",
+        // The Gemini TTS specific options go here
+        voice_config: {
+          voice_name: "Charon",
+          language_code: "lo-LA"
+        },
+        // Optional: you can add the prompt here for tone
+        prompt: "Warm and friendly"
+      }
+    ]
   };
 
   console.log("Requesting TTS from Gemini...");
