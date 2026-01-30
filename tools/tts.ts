@@ -61,7 +61,7 @@ async function synthesize() {
   }
 };
 */
-
+/*
   const payload = {
     model: "models/gemini-2.5-flash-tts",
     input: {
@@ -72,6 +72,17 @@ async function synthesize() {
       name: "Charon" 
     }
   };
+  */
+
+  const payload = {
+  text: "ໃສ ໃຜ",
+  model: "models/gemini-2.5-flash-tts",
+  voice_config: {
+    prebuilt_voice_config: {
+      voice_name: "Charon"
+    }
+  }
+};
 
   console.log("Requesting TTS from Gemini...");
 
