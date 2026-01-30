@@ -73,7 +73,7 @@ async function synthesize() {
     }
   };
   */
-
+/*
   const payload = {
   text: "ໃສ ໃຜ",
   model: "models/gemini-2.5-flash-tts",
@@ -83,6 +83,21 @@ async function synthesize() {
     }
   }
 };
+*/
+
+  const payload = {
+    // The standard Cloud TTS schema
+    input: {
+      text: "ໃສ ໃຜ"
+    },
+    voice: {
+      languageCode: "lo-LA",
+      name: "lo-LA-Wavenet-A" // Swapping to a standard Lao voice to verify connection
+    },
+    audioConfig: {
+      audioEncoding: "MP3"
+    }
+  };
 
   console.log("Requesting TTS from Gemini...");
 
