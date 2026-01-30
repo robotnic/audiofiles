@@ -10,9 +10,14 @@ const API_KEY =
 //const OUTPUT_DIR = path.join(__dirname, '../audio2');
 const OUTPUT_DIR = path.join(process.cwd(), "audio2");
 
-async function synthesize() {
+async function synthesize(text:string, id:string, gender:string) {
   if (!API_KEY) throw new Error("Missing GEMINI_API_KEY");
   if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR);
+
+  let voice = 'Puck'
+  if(gender === 'female'){
+    voice = 'Sulafat'
+  }
 
   //  const URL = `https://generativelanguage.googleapis.com{API_KEY}`;
   //  const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-tts:predict?key=${API_KEY}`;
@@ -170,7 +175,7 @@ async function synthesize() {
 const payload = {
   "contents": [{
     "parts": [{
-      "text": "Please read the following Lao words clearly: ໃສ ໃຜ"
+      "text": "Please read the following Lao words clearly: " + text
       //"text": "Please read the following Lao words clearly: Ich verstehe nur Bahnhof"
     }]
   }],
@@ -185,7 +190,7 @@ const payload = {
     "speech_config": {
       "voice_config": {
         "prebuilt_voice_config": {
-          "voice_name": "Puck" // Options include Puck, Charon, Kore, etc.
+          "voice_name": voice
         }
       }
     }
@@ -210,7 +215,7 @@ const payload = {
 
 
 if (audioBase64Data) {
-  const fileName = "gemini_audio3.raw"; // It's raw PCM data, not MP3
+  const fileName = `${id}_${gender}.raw`; // It's raw PCM data, not MP3
   // Make sure OUTPUT_DIR exists or define it first
   fs.writeFileSync(
     path.join(OUTPUT_DIR, fileName),
@@ -242,4 +247,11 @@ if (audioBase64Data) {
     */
 }
 
-synthesize();
+async function go(){
+await synthesize('ໃສ', 'sai_where_01', 'female');
+await synthesize('ໃສ', 'sai_where_01', 'male');
+await synthesize('ໃຜ', 'phai_01', 'female');
+await synthesize('ໃຜ', 'phai_01', 'male');
+}
+
+go();
