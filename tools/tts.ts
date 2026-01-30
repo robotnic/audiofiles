@@ -47,7 +47,7 @@ async function synthesize() {
     ]
   };
   */
-
+/*
   const payload = {
   contents: [
     {
@@ -60,6 +60,18 @@ async function synthesize() {
     response_mime_type: "audio/mp3",
   }
 };
+*/
+
+  const payload = {
+    model: "models/gemini-2.5-flash-tts",
+    input: {
+      text: "ໃສ ໃຜ"
+    },
+    voice: {
+      // Charon is the warm male voice for Lao
+      name: "Charon" 
+    }
+  };
 
   console.log("Requesting TTS from Gemini...");
 
