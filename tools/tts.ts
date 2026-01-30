@@ -15,7 +15,9 @@ async function synthesize() {
   if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR);
 
 //  const URL = `https://generativelanguage.googleapis.com{API_KEY}`;
-  const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-tts:predict?key=${API_KEY}`;
+//  const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-tts:predict?key=${API_KEY}`;
+
+const URL=  `https://texttospeech.googleapis.com/v1beta1/text:synthesize?key?${API_KEY}`
 /*
   const payload = {
     input: {
@@ -112,7 +114,7 @@ async function synthesize() {
     }
   };
   */
-
+/*
     const payload = {
     model: "models/gemini-2.5-flash-tts",
     // This is the specific structure for the beta TTS endpoint
@@ -125,6 +127,24 @@ async function synthesize() {
       }
     }
   };
+  */
+
+  const payload ={
+  "audioConfig": {
+    "audioEncoding": "LINEAR16",
+    "pitch": 0,
+    "speakingRate": 1
+  },
+  "input": {
+    "prompt": "Read aloud in a warm, welcoming tone.",
+    "text": "ໃສ ໃຜ"
+  },
+  "voice": {
+    "languageCode": "lo-la",
+    "modelName": "gemini-2.5-flash-tts",
+    "name": "Orus"
+  }
+}
 
 
   console.log("Requesting TTS from Gemini...");
