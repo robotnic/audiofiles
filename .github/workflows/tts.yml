@@ -1,7 +1,9 @@
 name: Generate TTS Audio
 
 on:
-  workflow_dispatch: # Allows manual trigger
+  push:
+    branches:
+      - gh-pages
 
 jobs:
   build:
