@@ -1,16 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { fileURLToPath } from 'url';
-
-// Reconstruct __dirname for ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Fix for Zscaler / SSL issues
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const API_KEY = process.env.GEMINI_API_KEY || 'APY0t3535kiTN9ToMaddDXGROwpguSorKjZk1nRDyBtl1Ns8O6Z9MprforQD2YKgcdgvPra1SSfgmk';
-const OUTPUT_DIR = path.join(__dirname, '../audio2');
+//const OUTPUT_DIR = path.join(__dirname, '../audio2');
+const OUTPUT_DIR = path.join(process.cwd(), 'audio2');
 
 async function synthesize() {
   if (!API_KEY) throw new Error("Missing GEMINI_API_KEY");
