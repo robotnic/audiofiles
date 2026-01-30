@@ -16,9 +16,9 @@ async function synthesize() {
 
   //  const URL = `https://generativelanguage.googleapis.com{API_KEY}`;
   //  const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-tts:predict?key=${API_KEY}`;
-    const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-tts:predict`;
+//    const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-tts:predict`;
 
-//  const URL = `https://texttospeech.googleapis.com/v1beta1/text:synthesize`;
+  const URL = `https://texttospeech.googleapis.com/v1beta1/text:synthesize`;
   /*
   const payload = {
     input: {
