@@ -170,7 +170,8 @@ async function synthesize() {
 const payload = {
   "contents": [{
     "parts": [{
-      "text": "Please read the following Lao words clearly: ໃສ ໃຜ"
+      //"text": "Please read the following Lao words clearly: ໃສ ໃຜ"
+      "text": "Please read the following Lao words clearly: Ich verstehe nur Bahnhof"
     }]
   }],
     "safetySettings": [
