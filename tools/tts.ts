@@ -170,7 +170,7 @@ async function synthesize() {
 const payload = {
   "contents": [{
     "parts": [{
-      "text": "ໃສ ໃຜ"
+      "text": "Please read the following Lao words clearly: ໃສ ໃຜ"
     }]
   }],
   "generation_config": {
