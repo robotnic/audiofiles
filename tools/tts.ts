@@ -203,7 +203,7 @@ const payload = {
 
 
 if (audioBase64Data) {
-  const fileName = "gemini_audio2.raw"; // It's raw PCM data, not MP3
+  const fileName = "gemini_audio3.raw"; // It's raw PCM data, not MP3
   // Make sure OUTPUT_DIR exists or define it first
   fs.writeFileSync(
     path.join(OUTPUT_DIR, fileName),
