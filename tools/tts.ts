@@ -199,6 +199,8 @@ const payload = {
   //console.log(text.substring(0,1000))
   const data = (await response.json()) as any;
 
+  const audioBase64Data = data.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+
 
 if (audioBase64Data) {
   const fileName = "gemini_audio.raw"; // It's raw PCM data, not MP3
