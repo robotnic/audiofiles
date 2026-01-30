@@ -174,7 +174,7 @@ const payload = {
     }]
   }],
   "generation_config": {
-    "response_mime_type": "audio/mp3",
+        "responseModalities": ["AUDIO"],
     "speech_config": {
       "voice_config": {
         "prebuilt_voice_config": {
