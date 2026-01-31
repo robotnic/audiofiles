@@ -11,6 +11,8 @@ const API_KEY =
 const OUTPUT_DIR = path.join(process.cwd(), "audio2");
 
 async function synthesize(text:string, id:string, gender:string) {
+  await new Promise(resolve => setTimeout(resolve, 60000));
+
   if (!API_KEY) throw new Error("Missing GEMINI_API_KEY");
   if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR);
 
@@ -249,6 +251,7 @@ if (audioBase64Data) {
 
 async function go(){
 await synthesize('ໃສ', 'sai_where_01', 'female');
+
 await synthesize('ໃສ', 'sai_where_01', 'male');
 await synthesize('ໃຜ', 'phai_01', 'female');
 await synthesize('ໃຜ', 'phai_01', 'male');
