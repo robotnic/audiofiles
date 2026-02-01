@@ -1,12 +1,13 @@
 {
   "name": "audiofiles",
   "version": "1.0.0",
+  "type": "module",
   "description": "create audio file for gh pages",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate-audio": "node tools/generate-tts-all.mjs",
-    "generate": "ts-node tools/tts.ts"
+    "generate": "node --loader ts-node/esm tools/gemini-tts-all.ts"
   },
   "repository": {
     "type": "git",
