@@ -92,6 +92,7 @@ export class TTS {
       process.exit(0);
     } else {
       console.error("❌ API Error: Did not find expected audio data path.");
+      console.log("Raw response:", dataSting.substring(0, 1000));
     }
   }
 
