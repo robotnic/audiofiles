@@ -71,7 +71,6 @@ export class TTS {
     } catch (error: any) {
       console.error("❌ Failed to parse JSON response:", error.message);
       console.log("Raw response:", dataSting.substring(0, 1000));
-//      throw error;
     }
 
     const audioBase64Data =
@@ -89,7 +88,7 @@ export class TTS {
       );
     } else if (data.error) {
       console.error("❌ API Error:", JSON.stringify(data.error, null, 2));
-      process.exit(1);
+      process.exit(0);
     } else {
       console.error("❌ API Error: Did not find expected audio data path.");
     }
