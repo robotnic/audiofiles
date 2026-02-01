@@ -9,7 +9,7 @@ export class TTS {
   static API_KEY =
     process.env.GEMINI_API_KEY ||
     "APY0t3535kiTN9ToMaddDXGROwpguSorKjZk1nRDyBtl1Ns8O6Z9MprforQD2YKgcdgvPra1SSfgmk";
-  static OUTPUT_DIR = path.join(process.cwd(), "audio2");
+  static OUTPUT_DIR = path.join(process.cwd(), "audio");
 
   static async synthesize(text: string, id: string, gender: string) {
     await new Promise((resolve) => setTimeout(resolve, 60000));
