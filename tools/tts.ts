@@ -71,7 +71,7 @@ export class TTS {
     } catch (error: any) {
       console.error("❌ Failed to parse JSON response:", error.message);
       console.log("Raw response:", dataSting.substring(0, 1000));
-      throw error;
+//      throw error;
     }
 
     const audioBase64Data =
