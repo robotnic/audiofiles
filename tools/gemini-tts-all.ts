@@ -107,7 +107,7 @@ async function processItems(items: KnowledgeBaseItem[] | undefined, type: string
 
       console.log(`🎤 [${i + 1}/${items.length}] ${gender.toUpperCase()}: ${item.id}`);
 
-      await TTS.synthesize(text, item.id, gender);
+      await TTS.synthesize('audio',text, item.id, gender);
       /*
       const result = await generateLaoAudio(text, item.id, gender);
 

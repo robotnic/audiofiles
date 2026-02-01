@@ -11,8 +11,9 @@ export class TTS {
     "APY0t3535kiTN9ToMaddDXGROwpguSorKjZk1nRDyBtl1Ns8O6Z9MprforQD2YKgcdgvPra1SSfgmk";
   static OUTPUT_DIR = path.join(process.cwd(), "audio");
 
-  static async synthesize(text: string, id: string, gender: string) {
+  static async synthesize(dir='audio', text: string, id: string, gender: string) {
     await new Promise((resolve) => setTimeout(resolve, 60000));
+    TTS.OUTPUT_DIR = path.join(process.cwd(), dir);
 
     if (!TTS.API_KEY) throw new Error("Missing GEMINI_API_KEY");
     if (!fs.existsSync(TTS.OUTPUT_DIR)) fs.mkdirSync(TTS.OUTPUT_DIR);
@@ -82,7 +83,7 @@ export class TTS {
         path.join(TTS.OUTPUT_DIR, fileName),
         Buffer.from(audioBase64Data, "base64"),
       );
-      console.log(`✅ Success: Saved raw PCM data to /audio/${fileName}`);
+      console.log(`✅ Success: Saved raw PCM data to /${dir}/${fileName}`);
       console.log(
         "NOTE: This is raw PCM data. You might need to add a WAV header to play it easily.",
       );
