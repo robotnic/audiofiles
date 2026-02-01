@@ -37,8 +37,8 @@ jobs:
 
       - name: Convert RAW to MP3
         run: |
-          # Loop through all .raw files in audio2/
-          for file in audio2/*.raw; do
+          # Loop through all .raw files in audio/
+          for file in audio/*.raw; do
             # Convert: s16le (16-bit), 24k rate, 1 channel (mono)
             ffmpeg -f s16le -ar 24000 -ac 1 -i "$file" "${file%.raw}.mp3"
             # Optional: remove the raw file to keep the repo clean
