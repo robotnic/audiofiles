@@ -1,18 +1,19 @@
-import pkg from '@andresaya/edge-tts';
+import pkg from "@andresaya/edge-tts";
 const { EdgeTTS, Constants } = pkg;
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { TTS } from './tts';
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { TTS } from "./tts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const KB_PATH = path.join(__dirname, '../knowledge_base.json');
-const AUDIO_DIR = path.join(__dirname, '../audio');
+const KB_PATH = path.join(__dirname, "../knowledge_base.json");
+const targetDir = process.argv[2] || "audio";
+const AUDIO_DIR = path.join(__dirname, `../${targetDir}`);
 
 // Microsoft Edge TTS Voice Names for Lao (lo-LA)
 const voiceMap: Record<string, string> = {
-  female: 'lo-LA-KeomanyNeural',
-  male: 'lo-LA-ChanthavongNeural'
+  female: "lo-LA-KeomanyNeural",
+  male: "lo-LA-ChanthavongNeural",
 };
 
 interface ProcessResult {
@@ -39,7 +40,11 @@ interface KnowledgeBase {
   phrases?: KnowledgeBaseItem[];
 }
 
-async function generateLaoAudio(text: string, id: string, gender: string): Promise<ProcessResult> {
+async function generateLaoAudio(
+  text: string,
+  id: string,
+  gender: string,
+): Promise<ProcessResult> {
   const voiceName = voiceMap[gender];
   const fileName = `${id}_${gender}.mp3`;
   const outputPath = path.join(AUDIO_DIR, fileName);
@@ -47,7 +52,7 @@ async function generateLaoAudio(text: string, id: string, gender: string): Promi
   try {
     const tts = new EdgeTTS();
     await tts.synthesize(text, voiceName, {
-      outputFormat: Constants.OUTPUT_FORMAT.AUDIO_24KHZ_96KBITRATE_MONO_MP3
+      outputFormat: Constants.OUTPUT_FORMAT.AUDIO_24KHZ_96KBITRATE_MONO_MP3,
     });
 
     const buffer = await tts.toBuffer();
@@ -62,15 +67,18 @@ async function generateLaoAudio(text: string, id: string, gender: string): Promi
   }
 }
 
-async function processItems(items: KnowledgeBaseItem[] | undefined, type: string): Promise<ProcessStats> {
+async function processItems(
+  items: KnowledgeBaseItem[] | undefined,
+  type: string,
+): Promise<ProcessStats> {
   if (!items || items.length === 0) {
     console.log(`ℹ️  No ${type} found, skipping.\n`);
     return { created: 0, skipped: 0, failed: 0 };
   }
 
-  console.log(`\n${'='.repeat(60)}`);
+  console.log(`\n${"=".repeat(60)}`);
   console.log(`🎯 Generating TTS for ${type} (${items.length} items)`);
-  console.log(`${'='.repeat(60)}\n`);
+  console.log(`${"=".repeat(60)}\n`);
 
   let created = 0;
   let skipped = 0;
@@ -79,7 +87,7 @@ async function processItems(items: KnowledgeBaseItem[] | undefined, type: string
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
 
-    for (const gender of ['male', 'female']) {
+    for (const gender of ["male", "female"]) {
       const fileName = `${item.id}_${gender}.mp3`;
       const filePath = path.join(AUDIO_DIR, fileName);
 
@@ -92,22 +100,26 @@ async function processItems(items: KnowledgeBaseItem[] | undefined, type: string
       }
 
       // For alphabet, use name_lao; for others use lao or character
-      let text = '';
-      if (type === 'ALPHABET') {
-        text = item.name_lao || item.lao || '';
+      let text = "";
+      if (type === "ALPHABET") {
+        text = item.name_lao || item.lao || "";
       } else {
-        text = item.lao || item.character || '';
+        text = item.lao || item.character || "";
       }
-      
+
       if (!text) {
-        console.log(`⏭️  [${i + 1}/${items.length}] Skipped: ${item.id} (empty text)`);
+        console.log(
+          `⏭️  [${i + 1}/${items.length}] Skipped: ${item.id} (empty text)`,
+        );
         skipped++;
         continue;
       }
 
-      console.log(`🎤 [${i + 1}/${items.length}] ${gender.toUpperCase()}: ${item.id}`);
+      console.log(
+        `🎤 [${i + 1}/${items.length}] ${gender.toUpperCase()}: ${item.id}`,
+      );
 
-      await TTS.synthesize('audio',text, item.id, gender);
+      await TTS.synthesize(targetDir, text, item.id, gender);
       /*
       const result = await generateLaoAudio(text, item.id, gender);
 
@@ -119,7 +131,7 @@ async function processItems(items: KnowledgeBaseItem[] | undefined, type: string
       }
 */
       // Rate limiting: 2-second delay between requests
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
     }
   }
 
@@ -132,11 +144,11 @@ async function processItems(items: KnowledgeBaseItem[] | undefined, type: string
 }
 
 async function main(): Promise<void> {
-  console.log('\n🚀 Starting comprehensive TTS generation\n');
+  console.log("\n🚀 Starting comprehensive TTS generation\n");
 
   let kb: KnowledgeBase;
   try {
-    const data = await fs.readFile(KB_PATH, 'utf-8');
+    const data = await fs.readFile(KB_PATH, "utf-8");
     kb = JSON.parse(data);
   } catch (error: any) {
     console.error(`❌ Failed to load knowledge base: ${error.message}`);
@@ -148,35 +160,34 @@ async function main(): Promise<void> {
   let totalFailed = 0;
 
   // Priority 3: Vocabulary
-  const vocabStats = await processItems(kb.vocabulary, 'VOCABULARY');
+  const vocabStats = await processItems(kb.vocabulary, "VOCABULARY");
   totalCreated += vocabStats.created;
   totalSkipped += vocabStats.skipped;
   totalFailed += vocabStats.failed;
 
   // Priority 1: Alphabet
-  const alphabetStats = await processItems(kb.alphabet, 'ALPHABET');
+  const alphabetStats = await processItems(kb.alphabet, "ALPHABET");
   totalCreated += alphabetStats.created;
   totalSkipped += alphabetStats.skipped;
   totalFailed += alphabetStats.failed;
 
   // Priority 2: Phrases
-  const phraseStats = await processItems(kb.phrases, 'PHRASES');
+  const phraseStats = await processItems(kb.phrases, "PHRASES");
   totalCreated += phraseStats.created;
   totalSkipped += phraseStats.skipped;
   totalFailed += phraseStats.failed;
 
-
   // Grand summary
-  console.log(`${'='.repeat(60)}`);
+  console.log(`${"=".repeat(60)}`);
   console.log(`📈 GRAND SUMMARY`);
-  console.log(`${'='.repeat(60)}`);
+  console.log(`${"=".repeat(60)}`);
   console.log(`   ✅ Total Created: ${totalCreated}`);
   console.log(`   ⏭️  Total Skipped: ${totalSkipped}`);
   console.log(`   ❌ Total Failed: ${totalFailed}`);
   console.log(`\n✨ Complete TTS generation finished!\n`);
 }
 
-main().catch(error => {
-  console.error('Fatal error:', error);
+main().catch((error) => {
+  console.error("Fatal error:", error);
   process.exit(1);
 });
