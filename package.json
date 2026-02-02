@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate-audio": "node tools/generate-tts-all.mjs",
     "generate": "node --loader ts-node/esm tools/gemini-tts-all.ts",
-    "generate2": "node --loader ts-node/esm tools/gemini-tts-all.ts -- 'audio2"
+    "generate2": "node --loader ts-node/esm tools/gemini-tts-all.ts -- audio2"
   },
   "repository": {
     "type": "git",
