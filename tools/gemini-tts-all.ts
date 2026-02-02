@@ -7,7 +7,7 @@ import { TTS } from "./tts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const KB_PATH = path.join(__dirname, "../knowledge_base.json");
-const targetDir = process.argv[2] || "audio";
+const targetDir = process.argv[3] || "audio";
 const AUDIO_DIR = path.join(__dirname, `../${targetDir}`);
 
 // Microsoft Edge TTS Voice Names for Lao (lo-LA)
