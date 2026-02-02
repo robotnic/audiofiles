@@ -1,4 +1,4 @@
-name: Generate TTS Audio
+name: Generate TTS Audio2
 
 on:
   schedule:
